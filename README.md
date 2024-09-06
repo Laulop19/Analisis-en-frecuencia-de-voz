@@ -19,7 +19,58 @@ Se utiliza especialmente en sistemas de **procesamiento de audio** y **comunicac
 
 ## 🧮 Fórmulas Importantes
 
-### Potencia de la Señal:
+### Fórmulas de Beamforming
+En beamforming, el objetivo es combinar las señales capturadas por múltiples micrófonos para mejorar la relación señal-ruido (SNR) y extraer la señal de interés de una mezcla con ruido y otras fuentes.
+
+En el código, las fórmulas claves están relacionadas con la combinación de señales en el dominio de la frecuencia mediante FFT, y el uso de retardos basados en la distancia entre micrófonos.
+
+1. **Beamforming en el Dominio de la Frecuencia utilizando la Transformada Rápida de Fourier (FFT):**
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/38f4dce9-9bdb-41f7-af40-d0915d2c181c" alt="Imagen centrada y más grande" width="400"/>
+</div>
+
+Donde 𝑆𝑖(𝑓) es la transformada de Fourier de la señal 𝑠𝑖(𝑡) capturada por el micrófono 𝑖. La FFT convierte la señal del dominio del tiempo al dominio de la frecuencia.
+
+2. **Retardos basados en la distancia de los micrófonos:** El código introduce retardos a las señales en función de las distancia entre los micrófonos y la fuente de la señal.
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d1abce0c-142d-4407-afea-d456c4727649" alt="Imagen centrada" width="400"/>
+</div>
+
+   Donde:
+
+- 𝑓 es la frecuencia.
+- 𝑑 es la distancia entre los micrófonos.
+- 𝑐 es la velocidad del sonido (343 m/s).
+- 𝑗 es la unidad imaginaria.
+
+3. **Promedio de las señales en el dominio de la frecuencia:** Cuando se aplican los retardos en el dominio de la frecuencia, las señales transformadas de los micrófonos se combinan promediando sus valores.
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/8d588250-6371-4abe-820d-21600249e006" alt="Imagen centrada y más grande" width="500"/>
+</div>
+
+
+
+Donde 𝑆 beamformed(𝑓) es la señal beamformed en el dominio de la frecuencia. Este promedio es equivalente a un beamforming de tipo "Delay and Sum" en el dominio de la frecuencia.
+
+4. **Transformada Rápida de Fourier (FFT):** Para pasar una señal del dominio del tiempo al dominio de la frecuencia, se utiliza la FFT.
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/bed3d240-8288-4c17-b333-34b90f550fc6" width="500">
+</div>
+
+
+5. **Transformada Inversa de Fourier (IFFT):** Esta fórmula devuelve la señal combinada en el dominio del tiempo, después de aplicar el beamforming en el dominio de la frecuencia.
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d5e71f6a-e5f9-4842-8da9-37dc6acbd40f" alt="Imagen centrada y más grande" width="500"/>
+</div>
+
+### Otras fórmulas usadas
+
+### Potencia de la Señal: 
 La potencia de una señal \( x(n) \) se calcula con la fórmula:
 
 <div align="center">
@@ -31,22 +82,6 @@ Donde:
 - \( P_x \) es la potencia.
 - \( x(n) \) es la señal en el instante \( n \).
 - \( N \) es el número total de muestras.
-
----
-
-### Transformada Rápida de Fourier (FFT):
-Para pasar una señal del dominio del tiempo al dominio de la frecuencia, se utiliza la FFT:
-
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/bed3d240-8288-4c17-b333-34b90f550fc6" width="500">
-</div>
-
-### Beamforming (Retardo de la Señal):
-El retardo aplicado a las señales captadas por micrófonos se calcula en función de la distancia \( d \) entre ellos y la velocidad del sonido \( v \):
-
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/4fb54c1e-8170-474b-a2ab-9179cabf4c27" width="400">
-</div>
 
 ### Relación Señal/Ruido (SNR):
 La relación señal/ruido SNR se calcula en dB como:
@@ -97,10 +132,20 @@ La configuración del sistema está diseñada con rigurosidad y se detalla de la
 - **Distancias**: Las distancias entre los micrófonos y las fuentes de sonido se han definido con precisión para permitir una evaluación efectiva del beamforming. Las distancias varían desde 0.5 metros hasta 4 metros, proporcionando un rango completo para el análisis de la señal.
 
 ## 📊 Orientación Gráfica de Micrófonos y Fuentes
+Entre las fuentes habia una distancia de 1 metro:
+
+Distancia de la fuente uno a los micrófonos:
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/dbf72e1e-d7f0-44ba-b996-b39f9b9dd548" alt="Imagen centrada en GitHub" width="500"/>
+</div>
+
+Distancia de la fuente dos a los micrófonos:
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/379a93ff-aa06-4735-a3db-19f142a16a99" width="500">
+  <img src="https://github.com/user-attachments/assets/2767b07f-bbee-4cad-9bdd-589e31a5b047" alt="Imagen centrada en GitHub" width="500"/>
 </div>
+
+
 
 ### Descripción de la Configuración
 
